@@ -49,7 +49,7 @@ angular.module('zkNotify', [])
   }])
   .directive('zkNotify', ['$controller', function ($controller) {
     return {
-      templateUrl: 'notify.html',
+      templateUrl: 'angular-zk-notify.html',
       restrict: 'EA',
       scope: {},
       link: function postLink(scope, element, attrs) {
