@@ -8,7 +8,7 @@ var zkNotifyMgr = function(zkNotifySrv) {
     return zkNotifySrv.getNotifyMsg();
   };
 };
-zkNotifyMgr.$inject = ['$rootScope', '$timeout', 'zkNotifySrv'];
+zkNotifyMgr.$inject = ['zkNotifySrv'];
 
 angular.module('zkNotify', [])
   .service('zkNotifySrv', [function zkNotifySrv() {
