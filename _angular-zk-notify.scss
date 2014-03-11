@@ -1,0 +1,29 @@
+.zk-notify {
+  position: absolute;
+  left: 50%;
+  top: 70px;
+  z-index: 9999;
+  border:1px solid rgb(240, 195, 109);
+  background-color: rgb(249, 237, 190);
+  font-size: 13px;
+  font-weight: bold;
+  padding:2px 8px 2px 8px;
+  overflow: hidden;
+  width: 200px;
+  margin-left:  -104px; // (width + padding-left) / 2
+  @include transition(top 0.5s ease-out, opacity 0.5s ease-out 4s);
+}
+
+.zk-notify__content {
+  margin: 0;
+  float: left;
+  text-align: center;
+  width: 170px;
+}
+
+.zk-notify__close {
+  float: right;
+  text-align: right;
+  font-size: 14px;
+  text-decoration: none !important;
+}
