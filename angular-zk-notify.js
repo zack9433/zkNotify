@@ -1,6 +1,6 @@
 'use strict';
 
-var NotifyMgr = function($rootScope, $timeout, zkNotifySrv) {
+var zkNotifyMgr = function($rootScope, $timeout, zkNotifySrv) {
   var timer = null, timeout = 6000;
 
   this.setNotifyMsg = function(msg) {
@@ -25,7 +25,7 @@ var NotifyMgr = function($rootScope, $timeout, zkNotifySrv) {
     $timeout.cancel(timer);
   });
 };
-NotifyMgr.$inject = ['$rootScope', '$timeout', 'zkNotifySrv'];
+zkNotifyMgr.$inject = ['$rootScope', '$timeout', 'zkNotifySrv'];
 
 angular.module('zkNotify', [])
   .service('zkNotifySrv', [function zkNotifySrv() {
@@ -54,7 +54,7 @@ angular.module('zkNotify', [])
       scope: {},
       link: function postLink(scope, element, attrs) {
         var timeout = scope.$eval(attrs.timeout),
-            notifyMgr = $controller(NotifyMgr);
+            notifyMgr = $controller(zkNotifyMgr);
 
         if ('number' === typeof timeout) {
           notifyMgr.setTimer(timeout);
