@@ -1,0 +1,26 @@
+{
+  "name": "angular-zk-notify",
+  "version": "0.0.1",
+  "homepage": "https://github.com/zack9433/zkNotify.git",
+  "description": "Notification for Angular.js applications",
+  "main": "zkNotify.js",
+  "keywords": [
+    "angular.js",
+    "notify",
+    "popups",
+    "directive"
+  ],
+  "authors": [
+    "Zack Yang"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "Gruntfile.js"
+  ],
+  "dependencies": {
+    "angular": "~1"
+  }
+}
