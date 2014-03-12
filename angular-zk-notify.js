@@ -13,14 +13,14 @@ angular.module('zkNotify', [])
     };
 
   }])
-  .directive('zkNotify', ['$timeout', '$rootScope', 'zkNotifySrv', function ($timeout, $rootScope, zkNotifySrv) {
+  .directive('zkNotify', ['$timeout', 'zkNotifySrv', function ($timeout, zkNotifySrv) {
     return {
       templateUrl: 'angular-zk-notify.html',
       restrict: 'EA',
       replace: true,
       scope: {},
       link: function postLink(scope, element, attrs) {
-        var timeout = 6000;
+        var timeout = 6000, timer;
         if (attrs.timeout) {
           timeout = scope.$eval(attrs.timeout);
         }
@@ -41,8 +41,12 @@ angular.module('zkNotify', [])
         scope.$watch(function() {
           return zkNotifySrv.getNotifyMsg();
         }, function(newVal) {
+          if (timer) {
+            $timeout.cancel(timer);
+          }
+          scope.message = newVal;
           scope.isNotify = true;
-          $timeout(function() {
+          timer = $timeout(function() {
             scope.isNotify = false;
           }, timeout);
         });
