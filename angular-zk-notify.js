@@ -41,9 +41,14 @@ angular.module('zkNotify', [])
         scope.$watch(function() {
           return zkNotifySrv.getNotifyMsg();
         }, function(newVal) {
+          if (!newVal) {
+            return;
+          }
+
           if (timer) {
             $timeout.cancel(timer);
           }
+
           scope.message = newVal;
           scope.isNotify = true;
           timer = $timeout(function() {
