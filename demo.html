@@ -8,16 +8,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
     <link rel="stylesheet" href="angular-zk-notify.css">
+    <style>
+      .notify1 {
+        position: relative;
+        width: 100%;
+        height: 100px;
+      }
+
+      .notify2 {
+        position: relative;
+        top: 120px;
+        width: 100%;
+        height: 100px;
+      }
+
+      .notify3 {
+        position: relative;
+        top: 240px;
+        width: 100%;
+        height: 100px;
+      }
+    </style>
   </head>
-  <body id="ngapp" ng-app="zkNotify">
-    <zk-notify></zk-notify>
+  <body id="ngapp" ng-app="DemoApp" ng-controller="DemoCtrl">
+    <div class="notify1">
+      <zk-notify timeout="4000"></zk-notify>
+    </div>
+    <div class="notify2">
+      <zk-notify timeout="6000" message="{{msg}}"></zk-notify>
+    </div>
+    <div class="notify3">
+      <zk-notify timeout="2000" message="{{msg2}}"></zk-notify>
+    </div>
 
     <script src="bower_components/angular/angular.js"></script>
     <script src="angular-zk-notify.js"></script>
+    <script src="demo.js"></script>
 
     <script id="angular-zk-notify.html" type="text/ng-template">
-      <div class="zk-notify" ng-show="notifyMgr.getNotifyMsgStatus()">
-        <p class="zk-notify__content" ng-bind="notifyMgr.getNotifyMsg()"></p>
+      <div class="zk-notify" ng-show="isNotify">
+        <p class="zk-notify__content" ng-bind="message"></p>
         <a class="zk-notify__close" href="">&times;</a>
       </div>
     </script>
