@@ -32,10 +32,10 @@ angular.module('zkNotify', [])
         attrs.$observe('message', function(value) {
           if (!value) {
             scope.notify = zkNotifySrv;
-        } else {
+          } else {
             scope.notify = {
-                message: value,
-                isShow: true
+              message: value,
+              isShow: true
             };
             $timeout(function() {
               scope.notify.isShow = false;
