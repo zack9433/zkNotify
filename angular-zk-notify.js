@@ -1,8 +1,10 @@
 'use strict';
 
 angular.module('zkNotify', [])
+  .constant('NOTIFY_TIMEOUT', 6000)
   .service('zkNotifySrv', [function zkNotifySrv() {
     this.message = null;
+    this.isShow = false;
 
     this.setNotifyMsg = function(msg) {
       this.message = msg;
@@ -13,34 +15,35 @@ angular.module('zkNotify', [])
     };
 
   }])
-  .directive('zkNotify', ['$timeout', 'zkNotifySrv', function ($timeout, zkNotifySrv) {
+  .directive('zkNotify',
+    ['$timeout', 'zkNotifySrv', 'NOTIFY_TIMEOUT', function ($timeout, zkNotifySrv, NOTIFY_TIMEOUT) {
     return {
       templateUrl: 'angular-zk-notify.html',
       restrict: 'EA',
       replace: true,
       scope: {},
       link: function postLink(scope, element, attrs) {
-        var timeout = 6000, timer;
+        var timeout = NOTIFY_TIMEOUT, timer;
+
         if (attrs.timeout) {
           timeout = scope.$eval(attrs.timeout);
         }
 
-        scope.isNotify = false;
         attrs.$observe('message', function(value) {
           if (!value) {
-            scope.message = zkNotifySrv.getNotifyMsg();
-          } else {
-            scope.message = value;
-            scope.isNotify = true;
+            scope.notify = zkNotifySrv;
+        } else {
+            scope.notify = {
+                message: value,
+                isShow: true
+            };
             $timeout(function() {
-              scope.isNotify = false;
+              scope.notify.isShow = false;
             }, timeout);
           }
         });
 
-        scope.$watch(function() {
-          return zkNotifySrv.getNotifyMsg();
-        }, function(newVal) {
+        scope.$watch('notify.message', function(newVal) {
           if (!newVal) {
             return;
           }
@@ -50,10 +53,9 @@ angular.module('zkNotify', [])
           }
 
           if (!attrs.message) {
-            scope.message = newVal;
-            scope.isNotify = true;
+            scope.notify.isShow = true;
             timer = $timeout(function() {
-              scope.isNotify = false;
+              scope.notify.isShow = false;
             }, timeout);
           }
         });
