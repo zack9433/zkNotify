@@ -49,11 +49,13 @@ angular.module('zkNotify', [])
             $timeout.cancel(timer);
           }
 
-          scope.message = newVal;
-          scope.isNotify = true;
-          timer = $timeout(function() {
-            scope.isNotify = false;
-          }, timeout);
+          if (!attrs.message) {
+            scope.message = newVal;
+            scope.isNotify = true;
+            timer = $timeout(function() {
+              scope.isNotify = false;
+            }, timeout);
+          }
         });
       }
     };
