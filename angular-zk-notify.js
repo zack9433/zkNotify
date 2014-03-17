@@ -43,6 +43,12 @@ angular.module('zkNotify', [])
           }
         });
 
+        scope.closeNotify = function(status) {
+          if (status) {
+            scope.notify.isShow = false;
+          }
+        };
+
         scope.$watch('notify.message', function(newVal) {
           if (!newVal) {
             return;

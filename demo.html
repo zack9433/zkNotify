@@ -48,7 +48,7 @@
     <script id="angular-zk-notify.html" type="text/ng-template">
       <div class="zk-notify" ng-show="notify.isShow">
         <p class="zk-notify__content" ng-bind="notify.message"></p>
-        <a class="zk-notify__close" href="">&times;</a>
+        <a class="zk-notify__close" href="" ng-click="closeNotify(notify.isShow)">&times;</a>
       </div>
     </script>
   </body>
