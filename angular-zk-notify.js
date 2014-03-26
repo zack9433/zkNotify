@@ -16,7 +16,8 @@ angular.module('zkNotify', [])
 
   }])
   .directive('zkNotify',
-    ['$timeout', 'zkNotifySrv', 'NOTIFY_TIMEOUT', function ($timeout, zkNotifySrv, NOTIFY_TIMEOUT) {
+    ['$rootScope', '$timeout', 'zkNotifySrv', 'NOTIFY_TIMEOUT',
+    function ($rootScope, $timeout, zkNotifySrv, NOTIFY_TIMEOUT) {
     return {
       templateUrl: 'angular-zk-notify.html',
       restrict: 'EA',
@@ -44,14 +45,12 @@ angular.module('zkNotify', [])
           }
         });
 
-        scope.closeNotify = function(status) {
+        scope.closeNotify = function() {
           if (timer) {
             $timeout.cancel(timer);
           }
-          if (status) {
-            scope.notify.isShow = false;
-            scope.notify.message = '';
-          }
+          scope.notify.isShow = false;
+          scope.notify.message = '';
         };
 
         scope.$watch('notify.message', function(newVal) {
@@ -70,6 +69,10 @@ angular.module('zkNotify', [])
               zkNotifySrv.setNotifyMsg('');
             }, timeout);
           }
+        });
+
+        $rootScope.$on('$locationChangeSuccess', function() {
+          scope.closeNotify();
         });
       }
     };
