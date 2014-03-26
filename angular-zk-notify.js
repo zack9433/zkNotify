@@ -45,8 +45,12 @@ angular.module('zkNotify', [])
         });
 
         scope.closeNotify = function(status) {
+          if (timer) {
+            $timeout.cancel(timer);
+          }
           if (status) {
             scope.notify.isShow = false;
+            scope.notify.message = '';
           }
         };
 
