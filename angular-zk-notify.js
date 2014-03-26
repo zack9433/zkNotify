@@ -39,6 +39,7 @@ angular.module('zkNotify', [])
             };
             $timeout(function() {
               scope.notify.isShow = false;
+              scope.notify.message = '';
             }, timeout);
           }
         });
@@ -62,6 +63,7 @@ angular.module('zkNotify', [])
             scope.notify.isShow = true;
             timer = $timeout(function() {
               scope.notify.isShow = false;
+              zkNotifySrv.setNotifyMsg('');
             }, timeout);
           }
         });
