@@ -30,16 +30,16 @@ angular.module('zkNotify', [])
           timeout = scope.$eval(attrs.timeout);
         }
 
+        element.addClass('hide');
         attrs.$observe('message', function(value) {
           if (!value) {
             scope.notify = zkNotifySrv;
           } else {
             scope.notify = {
-              message: value,
-              isShow: true
+              message: value
             };
             $timeout(function() {
-              scope.notify.isShow = false;
+              element.addClass('hide');
               scope.notify.message = '';
             }, timeout);
           }
@@ -49,7 +49,7 @@ angular.module('zkNotify', [])
           if (timer) {
             $timeout.cancel(timer);
           }
-          scope.notify.isShow = false;
+          element.addClass('hide');
           scope.notify.message = '';
         };
 
@@ -63,17 +63,19 @@ angular.module('zkNotify', [])
           }
 
           if (!attrs.message) {
-            scope.notify.isShow = true;
+            element.removeClass('hide');
             timer = $timeout(function() {
-              scope.notify.isShow = false;
+              element.addClass('hide');
               zkNotifySrv.setNotifyMsg('');
             }, timeout);
           }
         });
 
         $rootScope.$on('$locationChangeSuccess', function() {
-          scope.closeNotify();
+          if (scope.notify.isShow) {
+            scope.closeNotify();
+          }
         });
       }
     };
-  }]);
+  }
