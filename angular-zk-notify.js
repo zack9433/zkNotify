@@ -75,4 +75,4 @@ angular.module('zkNotify', [])
         });
       }
     };
-  }
+  }]);
