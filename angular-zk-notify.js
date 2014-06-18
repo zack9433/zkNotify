@@ -4,7 +4,6 @@ angular.module('zkNotify', [])
   .constant('NOTIFY_TIMEOUT', 6000)
   .service('zkNotifySrv', [function zkNotifySrv() {
     this.message = null;
-    this.isShow = false;
 
     this.setNotifyMsg = function(msg) {
       this.message = msg;
@@ -72,9 +71,7 @@ angular.module('zkNotify', [])
         });
 
         $rootScope.$on('$locationChangeSuccess', function() {
-          if (scope.notify.isShow) {
-            scope.closeNotify();
-          }
+          scope.closeNotify();
         });
       }
     };
