@@ -63,7 +63,6 @@ angular.module('zkNotify', [])
 
           if (!attrs.message) {
             element.css('display', 'block');
-            element.removeClass('hide');
             timer = $timeout(function() {
               element.css('display', 'none');
               zkNotifySrv.setNotifyMsg('');
