@@ -29,7 +29,7 @@ angular.module('zkNotify', [])
           timeout = scope.$eval(attrs.timeout);
         }
 
-        element.style('display', 'none');
+        element.css('display', 'none');
         attrs.$observe('message', function(value) {
           if (!value) {
             scope.notify = zkNotifySrv;
@@ -38,7 +38,7 @@ angular.module('zkNotify', [])
               message: value
             };
             $timeout(function() {
-              element.style('display', 'block');
+              element.css('display', 'block');
               scope.notify.message = '';
             }, timeout);
           }
@@ -48,7 +48,7 @@ angular.module('zkNotify', [])
           if (timer) {
             $timeout.cancel(timer);
           }
-          element.style('display', 'none');
+          element.css('display', 'none');
           scope.notify.message = '';
         };
 
@@ -62,10 +62,10 @@ angular.module('zkNotify', [])
           }
 
           if (!attrs.message) {
-            element.style('display', 'block');
+            element.css('display', 'block');
             element.removeClass('hide');
             timer = $timeout(function() {
-              element.style('display', 'none');
+              element.css('display', 'none');
               zkNotifySrv.setNotifyMsg('');
             }, timeout);
           }
