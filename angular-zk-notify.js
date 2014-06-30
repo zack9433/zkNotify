@@ -1,6 +1,6 @@
 ;(function() { 'use strict';
   angular.module('zkNotify', [])
-    .constant('NOTIFY_TIMEOUT', 3000)
+    .constant('NOTIFY_TIMEOUT', 6000)
     .service('zkNotifySrv', [function zkNotifySrv() {
       this.message = null;
 
