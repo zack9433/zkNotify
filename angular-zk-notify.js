@@ -18,10 +18,20 @@
         return config.notifyTimeout;
       };
 
+      self.setNotifyTimer = function(timer) {
+        config.timer = timer;
+      };
+
+      self.getNotifyTimer = function() {
+        return config.timer;
+      };
+
       this.$get = function() {
         return {
           setNotifyTimeout: self.setNotifyTimeout,
-          getNotifyTimeout: self.getNotifyTimeout
+          getNotifyTimeout: self.getNotifyTimeout,
+          setNotifyTimer: self.setNotifyTimer,
+          getNotifyTimer: self.getNotifyTimer
         };
       };
     })
@@ -40,9 +50,12 @@
         var timeout = zkNotifyConfig.getNotifyTimeout();
 
         if (timeout > 0) {
-          $timeout(function() {
+
+          var timer = $timeout(function() {
             self.hideNotifyMsg();
           }, timeout);
+
+          zkNotifyConfig.setNotifyTimer(timer);
         }
       };
 
@@ -91,6 +104,13 @@
           }
 
           scope.closeNotify = function() {
+
+            var timer = zkNotifyConfig.getNotifyTimer();
+
+            if (timer) {
+              $timeout.cancel(timer);
+              zkNotifyConfig.setNotifyTimer(null);
+            }
             scope.notify.hideNotifyMsg();
           };
 
